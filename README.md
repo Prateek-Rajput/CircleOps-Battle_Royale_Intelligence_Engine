@@ -1,30 +1,30 @@
-# PUBG Intelligence Engine 🎯  
+# PUBG Intelligence Engine   
 End-to-End Player Modeling, Role Classification, and Squad-Level Prediction Pipeline
 
 ---
 
-## 🚀 Project Overview
+## Project Overview
 
 The PUBG Intelligence Engine is a full-stack machine learning pipeline built to analyze competitive player behavior, model squad dynamics, and predict win placements using gameplay telemetry. It combines role discovery, graph learning, ensemble modeling, and explainability into one cohesive system.
 
 ---
 
-## 🔍 Analysis & Insights
+## Analysis & Insights
 
-### 🎯 Match Winner Role Distribution
+### Match Winner Role Distribution
 - **Passive Campers (Cluster 0)** win most matches — they focus on survival and positioning.
 - **Midgame Scouts (Cluster 3)** often rotate early and survive long enough to place well.
 - **Clutch Gods (Cluster 4)** dominate when present, but are rare.
 - **Aggressive Slayers (Cluster 1)** deal high damage but win fewer matches — likely due to risky combat.
 - **Support Combatants (Cluster 2)** had the lowest win rate — they help squads but don’t close out games.
 
-### 📊 Strategic Insight
+### Strategic Insight
 > The best match predictors were survival time, mobility, and kill efficiency — not raw aggression.  
 > **Careful movement and zone control beat pure combat.**
 
 ---
 
-## 🧠 How Were Player Roles (Clusters) Formed?
+## How Were Player Roles (Clusters) Formed?
 
 - A subset of **combat, mobility, and support stats** (kills, damage, heals, distance) was used to cluster players.
 - Clustering was performed using **k-Means (k=5)** after standardization.
@@ -40,7 +40,7 @@ The PUBG Intelligence Engine is a full-stack machine learning pipeline built to 
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 pubg-intelligence-engine/
@@ -74,7 +74,7 @@ pubg-intelligence-engine/
 
 ---
 
-## ⚙️ Technical Stack
+## ⚙Technical Stack
 
 - Python 3.11+
 - `polars` for high-speed ETL
@@ -82,7 +82,7 @@ pubg-intelligence-engine/
 
 ---
 
-## 📊 Modeling Pipeline (6 Phases)
+## Modeling Pipeline (6 Phases)
 
 | Phase | Module                    | Output                             |
 |-------|---------------------------|-------------------------------------|
@@ -95,16 +95,16 @@ pubg-intelligence-engine/
 
 ---
 
-## 📈 Key Results
+## Key Results
 
-- 🧠 SHAP: `killPlace`, `walkDistance`, and `momentum_score` are top predictors
+- SHAP: `killPlace`, `walkDistance`, and `momentum_score` are top predictors
 - 📊 Clustering + role names enabled deeper interpretation of squad behaviors
 - 📈 Ridge + GNN ensemble improved RMSE over single models
 - ✅ Calibration ensured valid probability outputs between [0, 1]
 
 ---
 
-## 📦 How to Run
+## How to Run
 
 ```bash
 # Phase 1–6 pipeline
@@ -125,7 +125,7 @@ python notebooks/analyze_predicted_winners.py
 
 ---
 
-## 📬 Author
+## Author
 
 **Prateek Rajput**  
 Data Scientist | Gaming & ML Enthusiast  
