@@ -136,11 +136,8 @@ python notebooks/analyze_predicted_winners.py
 
 **Prateek Rajput**  
 Data Scientist | Gaming & ML Enthusiast  
-🔗 [LinkedIn](https://www.linkedin.com/in/your-profile/)  
+🔗 [LinkedIn](https://www.linkedin.com/in/prateek-rajput-b802b0169/)  
 🕹️ Built with passion for competitive gaming data
 
 ---
 
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
