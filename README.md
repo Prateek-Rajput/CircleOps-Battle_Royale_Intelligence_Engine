@@ -68,7 +68,6 @@ pubg-intelligence-engine/
 │       └── map_role_names.py
 ├── .gitignore
 ├── requirements.txt
-├── LICENSE
 └── README.md
 ```
 
