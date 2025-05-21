@@ -46,18 +46,32 @@ The PUBG Intelligence Engine is a full-stack machine learning pipeline built to 
 pubg-intelligence-engine/
 ├── data/
 │   ├── raw/                  ← train_v2.csv, test_v2.csv
-│   ├── processed/            ← all phase outputs
+│   ├── processed/            ← phase outputs (matches, roles, predictions)
 │   └── interim/              ← cleaned interim files
-├── notebooks/                ← analysis scripts
-├── outputs/                  ← SHAP plots, role summaries, logs
-├── models/                   ← saved model files
-├── src/                      ← core pipeline scripts (phase1–6)
-│   └── utils/                ← helper utilities like role naming
-├── requirements.txt
+├── notebooks/
+│   ├── analyze_predicted_winners.py
+│   ├── identify_pred_winners.py
+│   ├── profile_role_clusters.py
+├── outputs/
+│   ├── shap_summary.png
+│   ├── ensemble_performance_with_gnn.txt
+│   └── role_cluster_profiles.csv
+├── models/                   ← saved models and boosters
+├── src/
+│   ├── phase1_pipeline.py
+│   ├── phase2_role_embedding.py
+│   ├── phase3_explainability.py
+│   ├── phase4_ensemble.py
+│   ├── phase5_squad_gnn.py
+│   ├── phase6_score_test.py
+│   └── utils/
+│       └── map_role_names.py
 ├── .gitignore
+├── requirements.txt
 ├── LICENSE
 └── README.md
 ```
+
 
 ---
 
