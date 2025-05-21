@@ -5,13 +5,38 @@ End-to-End Player Modeling, Role Classification, and Squad-Level Prediction Pipe
 
 ## 🚀 Project Overview
 
-The PUBG Intelligence Engine is a comprehensive machine learning system that processes raw player match data and delivers strategic insights across multiple layers:  
-- **Player behavior modeling (via role clustering and embeddings)**  
-- **Win prediction using XGBoost, Ridge, and Graph Neural Networks**  
-- **Squad synergy modeling through PyTorch Geometric**  
-- **Explainability with SHAP, role-based analytics, and calibrated scoring**
+The PUBG Intelligence Engine is a full-stack machine learning pipeline built to analyze competitive player behavior, model squad dynamics, and predict win placements using gameplay telemetry. It combines role discovery, graph learning, ensemble modeling, and explainability into one cohesive system.
 
-Built using **Polars**, **XGBoost**, **GNNs**, **SHAP**, and **Word2Vec**, this pipeline simulates real-world challenges in competitive multiplayer analytics.
+---
+
+## 🔍 Analysis & Insights
+
+### 🎯 Match Winner Role Distribution
+- **Passive Campers (Cluster 0)** win most matches — they focus on survival and positioning.
+- **Midgame Scouts (Cluster 3)** often rotate early and survive long enough to place well.
+- **Clutch Gods (Cluster 4)** dominate when present, but are rare.
+- **Aggressive Slayers (Cluster 1)** deal high damage but win fewer matches — likely due to risky combat.
+- **Support Combatants (Cluster 2)** had the lowest win rate — they help squads but don’t close out games.
+
+### 📊 Strategic Insight
+> The best match predictors were survival time, mobility, and kill efficiency — not raw aggression.  
+> **Careful movement and zone control beat pure combat.**
+
+---
+
+## 🧠 How Were Player Roles (Clusters) Formed?
+
+- A subset of **combat, mobility, and support stats** (kills, damage, heals, distance) was used to cluster players.
+- Clustering was performed using **k-Means (k=5)** after standardization.
+- These clusters were then assigned behavioral labels using feature averages and SHAP interpretation.
+
+| Cluster | Role Name           | Description |
+|---------|---------------------|-------------|
+| 0       | Passive Camper      | Plays safe, low combat |
+| 1       | Aggressive Slayer   | High kill volume, fast play |
+| 2       | Support Combatant   | High revives, low aggression |
+| 3       | Midgame Scout       | Moderate stats, rotates early |
+| 4       | Clutch God          | Explosive stats, rare but dominant |
 
 ---
 
@@ -21,28 +46,15 @@ Built using **Polars**, **XGBoost**, **GNNs**, **SHAP**, and **Word2Vec**, this 
 pubg-intelligence-engine/
 ├── data/
 │   ├── raw/                  ← train_v2.csv, test_v2.csv
-│   ├── processed/            ← phase outputs (matches, roles, predictions)
+│   ├── processed/            ← all phase outputs
 │   └── interim/              ← cleaned interim files
-├── notebooks/
-│   ├── analyze_predicted_winners.py
-│   ├── identify_pred_winners.py
-│   ├── profile_role_clusters.py
-├── outputs/
-│   ├── shap_summary.png
-│   ├── ensemble_performance_with_gnn.txt
-│   └── role_cluster_profiles.csv
-├── models/                   ← saved models and boosters
-├── src/
-│   ├── phase1_pipeline.py
-│   ├── phase2_role_embedding.py
-│   ├── phase3_explainability.py
-│   ├── phase4_ensemble.py
-│   ├── phase5_squad_gnn.py
-│   ├── phase6_score_test.py
-│   └── utils/
-│       └── map_role_names.py
-├── .gitignore
+├── notebooks/                ← analysis scripts
+├── outputs/                  ← SHAP plots, role summaries, logs
+├── models/                   ← saved model files
+├── src/                      ← core pipeline scripts (phase1–6)
+│   └── utils/                ← helper utilities like role naming
 ├── requirements.txt
+├── .gitignore
 ├── LICENSE
 └── README.md
 ```
@@ -53,82 +65,50 @@ pubg-intelligence-engine/
 
 - Python 3.11+
 - `polars` for high-speed ETL
-- `scikit-learn`, `xgboost`, `joblib`, `shap`, `gensim`, `torch`, `torch-geometric`
+- `scikit-learn`, `xgboost`, `shap`, `gensim`, `torch`, `torch-geometric`
 
 ---
 
 ## 📊 Modeling Pipeline (6 Phases)
 
-| Phase | Module                       | Output                                       |
-|-------|------------------------------|----------------------------------------------|
-| 1️⃣    | Session Modeling              | Cleaned match/session data                   |
-| 2️⃣    | Role Clustering & Embedding  | Player roles + Word2Vec embeddings           |
-| 3️⃣    | Explainability               | SHAP feature importance visualization        |
-| 4️⃣    | Role-based Ensemble          | XGBoost submodels + Ridge meta-model         |
-| 5️⃣    | Squad Graph Model            | GNN predictions via PyTorch Geometric        |
-| 6️⃣    | Scoring API                  | Calibrated predictions on test set           |
+| Phase | Module                    | Output                             |
+|-------|---------------------------|-------------------------------------|
+| 1️⃣    | Session Modeling           | Cleaned gameplay + session metrics |
+| 2️⃣    | Role Clustering & Embedding | Role assignments + Word2Vec vectors |
+| 3️⃣    | Explainability            | SHAP-based feature insights         |
+| 4️⃣    | Ensemble Modeling         | Role-based XGBoost + Ridge stack    |
+| 5️⃣    | Squad Graph Modeling      | PyG-based squad synergy predictions |
+| 6️⃣    | Test Set Scoring          | Calibrated match outcome predictions|
 
 ---
 
-## 🧠 Player Roles (Cluster Mapping)
+## 📈 Key Results
 
-| Cluster | Role Name          |
-|---------|--------------------|
-| 0       | Passive Camper     |
-| 1       | Aggressive Slayer  |
-| 2       | Support Combatant  |
-| 3       | Midgame Scout      |
-| 4       | Clutch God         |
-
----
-
-## 📈 Results
-
-- 📊 **SHAP** reveals killPlace, distance, and momentum drive win outcomes
-- 🧠 **Role Cluster 0 (Passive Campers)** win most matches — smart survival > brute force
-- 🔁 **GNN + Ridge Ensemble** improves generalization after calibration
+- 🧠 SHAP: `killPlace`, `walkDistance`, and `momentum_score` are top predictors
+- 📊 Clustering + role names enabled deeper interpretation of squad behaviors
+- 📈 Ridge + GNN ensemble improved RMSE over single models
+- ✅ Calibration ensured valid probability outputs between [0, 1]
 
 ---
 
 ## 📦 How to Run
 
 ```bash
-# Phase 1: Preprocess raw match data
+# Phase 1–6 pipeline
 python src/phase1_pipeline.py
-
-# Phase 2: Role clustering + Word2Vec embedding
 python src/phase2_role_embedding.py
-
-# (Optional) Phase 3: SHAP explainability
 python src/phase3_explainability.py
-
-# Phase 4: Train ensemble model
 python src/phase4_ensemble.py
-
-# Phase 5: Train squad-based GNN model
 python src/phase5_squad_gnn.py
-
-# Phase 6: Score test set
 python src/phase6_score_test.py
 ```
 
----
-
-## 🧪 Post-Modeling Analysis
-
 ```bash
+# Final analysis
 python notebooks/identify_pred_winners.py
 python notebooks/profile_role_clusters.py
 python notebooks/analyze_predicted_winners.py
 ```
-
----
-
-## 💡 Key Takeaways
-
-- Multi-stage pipelines reflect real competitive game data workflows
-- Role-aware modeling leads to more interpretable predictions
-- Squad-based GNNs enhance performance prediction via teammate dynamics
 
 ---
 
@@ -141,3 +121,6 @@ Data Scientist | Gaming & ML Enthusiast
 
 ---
 
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
