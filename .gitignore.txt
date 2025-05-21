@@ -1,0 +1,17 @@
+# Ignore all processed and raw data
+data/raw/*
+data/processed/*
+outputs/*
+
+# Keep folder structure using .gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!outputs/.gitkeep
+
+# Ignore Python cache and system files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+*.pkl
+*.json
