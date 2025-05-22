@@ -1,11 +1,11 @@
-# PUBG Intelligence Engine   
+# CircleOps: Battle Royale Intelligence Engine
 End-to-End Player Modeling, Role Classification, and Squad-Level Prediction Pipeline
 
 ---
 
 ## Project Overview
 
-The PUBG Intelligence Engine is a full-stack machine learning pipeline built to analyze competitive player behavior, model squad dynamics, and predict win placements using gameplay telemetry. It combines role discovery, graph learning, ensemble modeling, and explainability into one cohesive system.
+CircleOps is a full-stack machine learning pipeline built to analyze competitive player behavior, model squad dynamics, and predict win placements using gameplay telemetry. It combines role discovery, graph learning, ensemble modeling, and explainability into one cohesive system.
 
 ---
 
@@ -43,7 +43,7 @@ The PUBG Intelligence Engine is a full-stack machine learning pipeline built to 
 ## Project Structure
 
 ```
-pubg-intelligence-engine/
+/
 ├── data/
 │   ├── raw/                  ← train_v2.csv, test_v2.csv
 │   ├── processed/            ← phase outputs (matches, roles, predictions)
