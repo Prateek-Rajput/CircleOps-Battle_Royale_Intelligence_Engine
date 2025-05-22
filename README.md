@@ -74,7 +74,7 @@ pubg-intelligence-engine/
 
 ---
 
-## ⚙Technical Stack
+## Technical Stack
 
 - Python 3.11+
 - `polars` for high-speed ETL
