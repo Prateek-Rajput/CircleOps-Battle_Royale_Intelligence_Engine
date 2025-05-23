@@ -14,7 +14,7 @@ CircleOps is a full-stack machine learning pipeline built to analyze competitive
 ### Match Winner Role Distribution
 - **Passive Campers (Cluster 0)** win most matches — they focus on survival and positioning.
 - **Midgame Scouts (Cluster 3)** often rotate early and survive long enough to place well.
-- **Clutch Gods (Cluster 4)** dominate when present, but are rare.
+- **Clutch Masters (Cluster 4)** dominate when present, but are rare.
 - **Aggressive Slayers (Cluster 1)** deal high damage but win fewer matches — likely due to risky combat.
 - **Support Combatants (Cluster 2)** had the lowest win rate — they help squads but don’t close out games.
 
@@ -36,7 +36,7 @@ CircleOps is a full-stack machine learning pipeline built to analyze competitive
 | 1       | Aggressive Slayer   | High kill volume, fast play |
 | 2       | Support Combatant   | High revives, low aggression |
 | 3       | Midgame Scout       | Moderate stats, rotates early |
-| 4       | Clutch God          | Explosive stats, rare but dominant |
+| 4       | Clutch Master          | Explosive stats, rare but dominant |
 
 ---
 
@@ -98,9 +98,9 @@ CircleOps is a full-stack machine learning pipeline built to analyze competitive
 ## Key Results
 
 - SHAP: `killPlace`, `walkDistance`, and `momentum_score` are top predictors
-- 📊 Clustering + role names enabled deeper interpretation of squad behaviors
-- 📈 Ridge + GNN ensemble improved RMSE over single models
-- ✅ Calibration ensured valid probability outputs between [0, 1]
+- Clustering + role names enabled deeper interpretation of squad behaviors
+- Ridge + GNN ensemble improved RMSE over single models
+- Calibration ensured valid probability outputs between [0, 1]
 
 ---
 
